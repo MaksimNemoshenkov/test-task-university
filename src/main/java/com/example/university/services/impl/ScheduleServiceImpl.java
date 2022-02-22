@@ -1,10 +1,10 @@
 package com.example.university.services.impl;
 
+import com.example.university.domain.Day;
+import com.example.university.domain.Group;
 import com.example.university.domain.Schedule;
-import com.example.university.repo.GroupRepository;
-import com.example.university.repo.HallRepository;
-import com.example.university.repo.LessonRepository;
-import com.example.university.repo.ScheduleRepository;
+import com.example.university.domain.Student;
+import com.example.university.repo.*;
 import com.example.university.services.ScheduleService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +19,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     private final GroupRepository groupRepository;
     private final HallRepository hallRepository;
     private final LessonRepository lessonRepository;
+    private final StudentRepository studentRepository;
 
     @Override
     public List<Schedule> findAll() {
@@ -50,5 +51,12 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public void delete(Schedule schedule) {
         scheduleRepository.delete(schedule);
+    }
+
+    @Override
+    public List<Schedule> getByStudentAndDay(long studentId, Day day) {
+        Student student = studentRepository.getById(studentId);
+        Group group = student.getGroup();
+        return scheduleRepository.findByGroupIdAndDays(group.getId(), day);
     }
 }

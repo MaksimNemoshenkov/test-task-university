@@ -1,5 +1,6 @@
 package com.example.university.controllers;
 
+import com.example.university.domain.Day;
 import com.example.university.domain.Schedule;
 import com.example.university.domain.Views;
 import com.example.university.services.ScheduleService;
@@ -26,6 +27,12 @@ public class ScheduleController {
     @JsonView(Views.FullStudent.class)
     public Schedule getOne(@PathVariable long id){
         return scheduleService.getOne(id);
+    }
+
+    @GetMapping("/student")
+    @JsonView(Views.FullStudent.class)
+    public  List<Schedule> getForStudentAndDay (@RequestParam long student, Day day) {
+        return scheduleService.getByStudentAndDay(student, day);
     }
 
     @PostMapping
