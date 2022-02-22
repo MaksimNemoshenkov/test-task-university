@@ -18,15 +18,31 @@ public class StudentController {
 
     @GetMapping
     @JsonView(Views.IdName.class)
-    public List<Student> list (){
+    public List<Student> getAll (){
         return studentService.findAll();
     }
 
-    @PostMapping
-    public Student create(@RequestParam String studentName,
-                                        String groupName
-    ){
-        studentService.createByName(studentName, groupName);
-        return new Student();
+    @GetMapping("{id}")
+    @JsonView(Views.FullStudent.class)
+    public Student getOne(@PathVariable long id){
+        return studentService.getOne(id);
     }
+
+    @PostMapping
+    @JsonView(Views.FullStudent.class)
+    public Student create(@RequestBody Student student){
+        return studentService.save(student);
+    }
+
+    @PutMapping
+    @JsonView(Views.FullStudent.class)
+    public Student update(@RequestBody Student student){
+        return studentService.update(student);
+    }
+
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable("id") Student student){
+        studentService.delete(student);
+    }
+
 }

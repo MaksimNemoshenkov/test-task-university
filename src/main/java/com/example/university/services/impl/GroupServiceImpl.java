@@ -25,12 +25,13 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public Group save(String name) {
-        return groupRepository.save(new Group(name));
+    public Group save(Group group) {
+        return groupRepository.save(group);
     }
 
     @Override
-    public Group update(Group groupFromDb, Group group) {
+    public Group update(Group group) {
+        Group groupFromDb = groupRepository.getById(group.getId());
         groupFromDb.setName(group.getName());
         return groupRepository.save(groupFromDb);
     }

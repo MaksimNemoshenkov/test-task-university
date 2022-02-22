@@ -11,4 +11,6 @@ public interface GroupRepository extends JpaRepository<Group, Long> {
     @EntityGraph(attributePaths = { "students" })
     List<Group> findAll();
 
+    @Override
+    Group getById(Long aLong);
 }

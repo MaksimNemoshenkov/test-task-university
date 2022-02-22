@@ -14,7 +14,6 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @Table(name = "hall")
-@ToString(of = {"id", "name"})
 public class Hall {
 
     @Id
@@ -27,7 +26,9 @@ public class Hall {
     private String name;
 
     @Setter
-    @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonView(Views.FullHall.class)
+    @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL)
+    @ToString.Exclude
     private List<Schedule> schedules;
 
     public Hall(String name){

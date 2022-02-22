@@ -23,7 +23,13 @@ public class Student {
     private String name;
 
     @Setter
-    @ManyToOne
-    @JoinColumn(name = "group_id", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, optional = false)
+    @JsonView(Views.FullStudent.class)
+    @JoinColumn(name = "group_id", nullable = false)
     private Group group;
+
+    public Student(String name){
+        this.name = name;
+    }
+
 }

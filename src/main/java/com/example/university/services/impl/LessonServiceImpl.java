@@ -25,12 +25,13 @@ public class LessonServiceImpl implements LessonService {
     }
 
     @Override
-    public Lesson save(String name) {
-        return lessonRepository.save(new Lesson(name));
+    public Lesson save(Lesson lesson) {
+        return lessonRepository.save(lesson);
     }
 
     @Override
-    public Lesson update(Lesson lessonFromDb, Lesson lesson) {
+    public Lesson update(Lesson lesson) {
+        Lesson lessonFromDb = lessonRepository.getById(lesson.getId());
         lessonFromDb.setName(lesson.getName());
         return lessonRepository.save(lessonFromDb);
     }

@@ -1,6 +1,5 @@
 package com.example.university.services.impl;
 
-import com.example.university.domain.Group;
 import com.example.university.domain.Student;
 import com.example.university.repo.GroupRepository;
 import com.example.university.repo.StudentRepository;
@@ -23,21 +22,26 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student create(Student student, Group group) {
-        student.setGroup(group);
-        studentRepository.save(student);
-        return student;
+    public Student getOne(long id) {
+        return studentRepository.getById(id);
     }
 
     @Override
-    public Student createByName(String studentName, String groupName) {
-
-        return null;
+    public Student save(Student student) {
+        student.setGroup(groupRepository.getById(student.getGroup().getId()));
+        return studentRepository.save(student);
     }
 
     @Override
-    public void delete() {
+    public Student update(Student student) {
+        Student studentFromDb = studentRepository.getById(student.getId());
+        studentFromDb.setName(student.getName());
+        return studentRepository.save(studentFromDb);
+    }
 
+    @Override
+    public void delete(Student student) {
+        studentRepository.delete(student);
     }
 
 }

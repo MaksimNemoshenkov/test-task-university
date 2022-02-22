@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@AllArgsConstructor
 @Service
+@AllArgsConstructor
 public class HallServiceImpl implements HallService {
 
     private final HallRepository hallRepository;
@@ -39,12 +39,15 @@ public class HallServiceImpl implements HallService {
     public Hall save(Hall hall){
         return hallRepository.save(hall);
     }
+
     @Override
     public Hall save(String name) {
         return save(new Hall(name));
     }
     @Override
-    public Hall update(Hall hallFromDB, Hall hall){
+    public Hall update(Hall hall){
+        Hall hallFromDB = hallRepository.getById(hall.getId());
+
         hallFromDB.setName(hall.getName());
         return hallRepository.save(hallFromDB);
     }

@@ -16,14 +16,32 @@ public class GroupController {
 
     private final GroupService groupService;
 
-    @GetMapping("all")
+    @GetMapping
     @JsonView(Views.IdName.class)
-    public List<Group> list(){
+    public List<Group> getAll(){
         return groupService.findAll();
     }
 
-    @GetMapping
-    public Group getOne(@RequestParam Long id ){
+    @GetMapping("{id}")
+    @JsonView(Views.FullGroup.class)
+    public Group getOne(@PathVariable long id){
         return groupService.getOne(id);
     }
+
+    @PostMapping
+    public Group create(@RequestBody Group group){
+        return groupService.save(group);
+    }
+
+    @PutMapping
+    @JsonView(Views.IdName.class)
+    public Group update(@RequestBody Group group){
+        return groupService.update(group);
+    }
+
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable("id") Group group){
+        groupService.delete(group);
+    }
+
 }

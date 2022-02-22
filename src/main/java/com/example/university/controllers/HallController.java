@@ -18,12 +18,12 @@ public class HallController {
 
     @GetMapping
     @JsonView(Views.IdName.class)
-    public List<Hall> list(){
+    public List<Hall> getAll(){
         return hallService.findAll();
     }
 
     @GetMapping("{id}")
-    @JsonView(Views.IdName.class)
+    @JsonView(Views.FullHall.class)
     public Hall getOne(@PathVariable("id") Hall hall) {
         return hall;
     }
@@ -33,9 +33,10 @@ public class HallController {
         return hallService.save(hall);
     }
 
-    @PutMapping("{id}")
-    public Hall update(@PathVariable("id") Hall hallFromDB, @RequestBody Hall hall){
-        return hallService.update(hallFromDB, hall);
+    @PutMapping
+    @JsonView(Views.IdName.class)
+    public Hall update(@RequestBody Hall hall){
+        return hallService.update(hall);
     }
 
     @DeleteMapping("{id}")

@@ -82,5 +82,4 @@ VALUES (1, 'MONDAY'),
        (7, 'FRIDAY'),
        (8, 'FRIDAY');
 
-
-
+SELECT setval('hibernate_sequence', (SELECT MAX(id) FROM hall)+1);

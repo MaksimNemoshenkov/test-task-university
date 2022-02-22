@@ -8,7 +8,7 @@ public interface LessonService {
 
     Lesson getOne(Long id);
     List<Lesson> findAll();
-    Lesson save(String name);
-    Lesson update(Lesson lessonFromDb, Lesson lesson);
+    Lesson save(Lesson lesson);
+    Lesson update(Lesson lesson);
     void delete(Lesson lesson);
 }

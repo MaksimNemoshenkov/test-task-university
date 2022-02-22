@@ -6,8 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Getter
@@ -25,9 +24,9 @@ public class Group {
     private String name;
 
     @Setter
-    @OneToMany
-    @JoinColumn(name = "group_id")
-    private Set<Student> students;
+    @OneToMany (mappedBy="group", fetch=FetchType.EAGER)
+    @JsonView(Views.FullGroup.class)
+    private List<Student> students;
 
     public Group(String name){
         this.name = name;
